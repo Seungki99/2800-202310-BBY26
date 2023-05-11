@@ -5,7 +5,6 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const { ObjectId } = require("mongodb");
 const bcrypt = require("bcrypt");
-const saltRounds = 12;
 
 const port = process.env.PORT || 3000;
 
@@ -188,15 +187,15 @@ app.post("/submitUser", async (req, res) => {
 });
 
 app.post("/loggingin", async (req, res) => {
-    var email = req.body.email;
+    var name = req.body.name;
     var password = req.body.password;
 
     const schema = Joi.object({
-      email: Joi.string().email().required(),
+      name: Joi.string().required(),
       password: Joi.string().max(20).required(),
     });
 
-    const validationResult = schema.validate({ email, password });
+    const validationResult = schema.validate({ name, password });
     if (validationResult.error != null) {
       console.log(validationResult.error);
       var errorMessage = validationResult.error.details[0].message;
@@ -206,11 +205,11 @@ app.post("/loggingin", async (req, res) => {
       return;
     }
 
-    const user = await userCollection.findOne({ email: email });
+    const user = await userCollection.findOne({ name: name });
 
     if (!user) {
       res.send(
-        "Invalid email or password. Please <a href='/login'>try again</a>."
+        "Invalid name or password. Please <a href='/login'>try again</a>."
       );
       return;
     }
@@ -219,7 +218,7 @@ app.post("/loggingin", async (req, res) => {
 
     if (!match) {
       res.send(
-        "Invalid email or password. Please <a href='/login'>try again</a>."
+        "Invalid name or password. Please <a href='/login'>try again</a>."
       );
       return;
     }
@@ -227,6 +226,7 @@ app.post("/loggingin", async (req, res) => {
     req.session.authenticated = true;
     req.session.name = user.name;
     req.session.user_type = user.user_type;
+    req.session.email = user.email;
     console.log(
       req.session.name,
       req.session.user_type);
@@ -276,6 +276,49 @@ app.post("/admin/demote", async (req, res) => {
   );
   res.redirect("/admin");
 });
+
+app.get('/forgotpassword', function(req, res) {
+  res.render('forgotPassword');
+});
+const saltRounds = 12; // number of rounds to use for salt
+
+app.post("/reset-password", async (req, res) => {
+  const email = req.body.email;
+  const newPassword = req.body.password;
+
+  const schema = Joi.object({
+    email: Joi.string().email().required(),
+  });
+
+  const validationResult = schema.validate({ email });
+  if (validationResult.error != null) {
+    console.log(validationResult.error);
+    return;
+  }
+
+  const user = await userCollection.findOne({ email: email });
+  if (!user) {
+    console.log(`User with email ${email} does not exist`);
+    return;
+  }
+
+  const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+
+  await userCollection.updateOne(
+    { email: email },
+    { $set: { password: hashedPassword } }
+  );
+  console.log("Updated user password");
+
+  // Send email with new password to user's email address
+  
+  res.redirect("/login");
+});
+
+
+
+
+
 
 app.use(express.static(__dirname + "/public"));
 
