@@ -314,11 +314,15 @@ app.post("/reset-password", async (req, res) => {
   
   res.redirect("/login");
 });
+app.get("/profile", (req, res) => {
+  var name = req.session.name;
+  var email = req.session.email;
 
-
-
-
-
+  if(!req.session.authenticated){
+    res.redirect("/");
+  } else {
+  res.render("profile",{ name: name, email: email });}
+});
 
 app.use(express.static(__dirname + "/public"));
 
