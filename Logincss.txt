@@ -1,1 +1,0 @@
-This is CSS for login and logout txt file.

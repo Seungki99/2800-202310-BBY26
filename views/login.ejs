@@ -1,0 +1,35 @@
+<%- include("templates/header") %>
+<main class="form-signin w-25 m-auto">
+  <form action="/loggingin" method="post">
+    <h1 class="h3 mb-3 fw-normal">Log in</h1>
+    <div class="form-floating">
+      <input
+        type="text"
+        name="name"
+        class="form-control"
+        id="floatingInput"
+        placeholder="username"
+      />
+      <label for="floatingInput">name</label>
+    </div>
+    <div class="form-floating">
+      <input
+        type="password"
+        name="password"
+        class="form-control"
+        id="floatingPassword"
+        placeholder="Password"
+      />
+      <label for="floatingPassword">Password</label>
+    </div>
+    <a class="link-forgotpassword" href="/forgotpassword">forgot password?</a>
+    <button
+      class="w-100 btn btn-lg btn-primary"
+      style="margin-top: 32px"
+      type="submit"
+    >
+      Sign in
+    </button>
+  </form>
+</main>
+<%- include("templates/footer") %>
