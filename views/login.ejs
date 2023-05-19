@@ -1,5 +1,13 @@
 <%- include("templates/header") %>
 <main class="form-signin w-25 m-auto">
+  <div class="p-4 p-md-5 mb-4 text-white rounded welcome">
+    <div class="col-md px-0">
+        <h1 class="display-4 fst-italic">Recycling App</p>
+            <p class="lead mb-0">Find the Recycling Location and Recyclable.
+                <br> Find <span id="easterEgg">out</span>
+            </p>
+    </div>
+</div>
   <form action="/loggingin" method="post">
     <h1 class="h3 mb-3 fw-normal">Log in</h1>
     <div class="form-floating">
@@ -33,3 +41,6 @@
   </form>
 </main>
 <%- include("templates/footer") %>
+
+    <!-- /Login -->
+    <script src="/easterEgg.js"></script>
