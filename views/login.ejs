@@ -40,7 +40,23 @@
     </button>
   </form>
 </main>
-<%- include("templates/footer") %>
+<script>
+  // Your JavaScript code goes here
+  document.getElementById("easterEgg").addEventListener("mouseenter", increaseFontSize);
+  document.getElementById("easterEgg").addEventListener("mouseleave", decreaseFontSize);
 
-    <!-- /Login -->
-    <script src="/easterEgg.js"></script>
+  function increaseFontSize() {
+    var txt = document.getElementById('easterEgg');
+    var style = window.getComputedStyle(txt, null).getPropertyValue('font-size');
+    var currentSize = parseFloat(style);
+    txt.style.fontSize = (currentSize + 5) + 'px';
+  }
+
+  function decreaseFontSize() {
+    var txt = document.getElementById('easterEgg');
+    var style = window.getComputedStyle(txt, null).getPropertyValue('font-size');
+    var currentSize = parseFloat(style);
+    txt.style.fontSize = (currentSize - 5) + 'px';
+  }
+</script>
+<%- include("templates/footer") %>
