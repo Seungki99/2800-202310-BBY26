@@ -154,6 +154,10 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
+app.get("/map", (req, res) => {
+  res.render("map");
+});
+
 app.post("/submitUser", async (req, res) => {
   var name = req.body.name;
   var email = req.body.email;
