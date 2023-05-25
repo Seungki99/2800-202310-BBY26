@@ -90,8 +90,11 @@ function handleLocationError(browserHasGeolocation, infoWindow, userLocation) {
 }
 
 // Handle back button click event
-let backButton = document.getElementById("backButton");
-backButton.addEventListener("click", () => {
-    // Redirect to another page
-    window.location.href = "/members";
+document.addEventListener("DOMContentLoaded", (event) => {
+  let backButton = document.getElementById("backButton");
+  backButton.addEventListener("click", () => {
+      // Redirect to another page
+      window.location.href = "/members";
+  });
 });
+
