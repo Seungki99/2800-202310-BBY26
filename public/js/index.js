@@ -158,6 +158,10 @@ app.get("/map", (req, res) => {
   res.render("map");
 });
 
+app.get("/chatbot", (req, res) => {
+  res.render("chatbot");
+});
+
 app.post("/submitUser", async (req, res) => {
   var name = req.body.name;
   var email = req.body.email;
