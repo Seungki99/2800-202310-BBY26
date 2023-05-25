@@ -1,7 +1,7 @@
 let map;
 let infoWindow;
 
-function initMap() {
+window.initMap = function() {
     // Initialize map
     map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 0, lng: 0 },
@@ -88,8 +88,9 @@ function handleLocationError(browserHasGeolocation, infoWindow, userLocation) {
     );
     infoWindow.open(map);
 }
+
 // Handle back button click event
-backButton = document.getElementById("backButton");
+let backButton = document.getElementById("backButton");
 backButton.addEventListener("click", () => {
     // Redirect to another page
     window.location.href = "/members";
