@@ -158,6 +158,10 @@ app.get("/map", (req, res) => {
   res.render("map");
 });
 
+app.get("/chatbot", (req, res) => {
+  res.render("chatbot");
+});
+
 app.post("/submitUser", async (req, res) => {
   var name = req.body.name;
   var email = req.body.email;
@@ -249,9 +253,8 @@ app.get("/logout", function (req, res) {
 });
 
 const images = [
-  "cat1.gif",
-  "cat2.gif",
-  "cat3.jpeg",
+  "recycle.jpeg",
+  "recycle2.jpeg",
 ];
 
 app.get("/admin", sessionValidation, adminAuthorization, async (req, res) => {
