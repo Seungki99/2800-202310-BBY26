@@ -27,7 +27,7 @@ form.addEventListener("submit", async (e) => {
     {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Bearer ${OPEN_AI_API}`,
       },
     }
   );
